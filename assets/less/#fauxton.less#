@@ -365,7 +365,9 @@ table.databases {
     }
   }
   #footer-links{
-    
+    position: absolute;
+    bottom: 0;
+    width: 100%;
   }
   #user-create-admin{
     font-size: 12px
@@ -423,21 +425,19 @@ table.databases {
           }
         }
         #footer-nav-links {
-          width: 100%;
-          margin: 0;
-          li {
-            a {
-              font-size: 12px;
-              color: @linkColor;
-              padding: 0 0 10px 10px;
-              text-shadow: none;
+            li {
+                a {
+                    font-size: 12px;
+                    color: @linkColor;
+                    padding: 12px;
+                    text-shadow: none;
+                }
+                &.active, &:hover{
+                    a {
+                        text-decoration: underline;
+                    }
+                }
             }
-            &.active, &:hover{
-              a {
-                text-decoration: underline;
-              }
-            }
-          }
         }
       }
     nav {
@@ -502,6 +502,9 @@ table.databases {
           background-color: @primaryNav;
           border-top: 1px solid @linkColor;
           border-bottom: none;
+          font-size: 12px;
+          padding: 12px;
+          min-height: 44px;
           &.active, &:hover{
             background-color: @navBGHover;
             border-top: 1px solid @linkColor;
@@ -513,6 +516,7 @@ table.databases {
             color: @linkColor;
           }
         }
+
       }
       ul#bottom-nav-links{
         margin-top: 0;
