@@ -17,24 +17,32 @@ define([
 ],
 
 function(app, FauxtonAPI, Auth) {
+  
+  console.log("auth -> base.js -> define([...],...)");
 
   Auth.session = new Auth.Session();
   FauxtonAPI.setSession(Auth.session);
   app.session = Auth.session;
+  
+  console.log("Auth.session =", Auth.session);
+  console.log("FauxtonAPI =", FauxtonAPI);
 
   Auth.initialize = function() {
     Auth.navLink = new Auth.NavLink({model: Auth.session});
 
     FauxtonAPI.addHeaderLink({
-      title: "Auth", 
+      title: "Auth",
       href: "#_auth",
       view: Auth.navLink,
       icon: "fonticon-user",
       bottomNav: true,
       establish: [FauxtonAPI.session.fetchUser()]
     });
+    
+    if (FauxtonAPI.session.isLoggedIn()) {
+      FauxtonAPI.addHeaderLink({footerNav: true, href:"#logout", title:"Logout", icon: "", className: 'logout'});
+    }
       
-
     var auth = function (session, roles) {
       var deferred = $.Deferred();
 
@@ -60,14 +68,15 @@ function(app, FauxtonAPI, Auth) {
     FauxtonAPI.auth.registerAuthDenied(authDenied);
 
     FauxtonAPI.session.on('change', function () {
+      console.log("FauxtonAPI.session.on('change', -> FauxtonAPI.session.isLoggedIn() =", FauxtonAPI.session.isLoggedIn());
       if (FauxtonAPI.session.isLoggedIn()) {
         FauxtonAPI.addHeaderLink({footerNav: true, href:"#logout", title:"Logout", icon: "", className: 'logout'});
       } else {
         FauxtonAPI.removeHeaderLink({title: "Logout", footerNav: true});
       }
     });
+    
   };
-
 
   return Auth;
 });

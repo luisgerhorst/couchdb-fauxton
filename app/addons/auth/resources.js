@@ -89,6 +89,8 @@ function (app, FauxtonAPI, CouchdbSession) {
 
     isLoggedIn: function () {
       var userCtx = this.get('userCtx');
+      
+      console.log("isLoggedIn -> userCtx =", userCtx);
 
       if (userCtx.name) {
         return true;
